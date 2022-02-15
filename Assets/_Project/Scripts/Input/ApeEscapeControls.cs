@@ -34,66 +34,137 @@ namespace ApeEscape.Input
                     ""type"": ""Value"",
                     ""id"": ""d8a9788b-c460-45d1-8acd-05b25829e1b2"",
                     ""expectedControlType"": ""Vector2"",
+                    ""processors"": ""NormalizeVector2"",
+                    ""interactions"": """",
+                    ""initialStateCheck"": true
+                },
+                {
+                    ""name"": ""Camera"",
+                    ""type"": ""Value"",
+                    ""id"": ""9cc759e6-a8f2-4712-8157-d809f75d732a"",
+                    ""expectedControlType"": ""Vector2"",
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": true
+                },
+                {
+                    ""name"": ""Jump"",
+                    ""type"": ""Button"",
+                    ""id"": ""d436df3d-04c9-4d76-b1aa-71b21599be40"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""FreeLook"",
+                    ""type"": ""Button"",
+                    ""id"": ""cced501a-bac5-4cf0-803b-fb48c056df51"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
                 }
             ],
             ""bindings"": [
                 {
-                    ""name"": ""WASD"",
-                    ""id"": ""3c917c7a-8505-4250-b6c0-15403d30a2f4"",
-                    ""path"": ""2DVector"",
+                    ""name"": """",
+                    ""id"": ""c32c262e-0c95-4f97-b033-77d3f6161287"",
+                    ""path"": ""<Gamepad>/leftStick"",
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": """",
                     ""action"": ""Movement"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": ""DPad"",
+                    ""id"": ""4017e223-7ede-4b3d-a157-c14904051d6f"",
+                    ""path"": ""2DVector"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Camera"",
                     ""isComposite"": true,
                     ""isPartOfComposite"": false
                 },
                 {
                     ""name"": ""up"",
-                    ""id"": ""4d31cd99-9007-4bab-b264-a48719dd1863"",
-                    ""path"": ""<Keyboard>/w"",
+                    ""id"": ""a3901353-85fb-4a6c-8927-67ae2edb19fe"",
+                    ""path"": ""<Gamepad>/dpad/up"",
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": """",
-                    ""action"": ""Movement"",
+                    ""action"": ""Camera"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": true
                 },
                 {
                     ""name"": ""down"",
-                    ""id"": ""e045b9ea-f5d8-4949-a49c-8d4f08839afc"",
-                    ""path"": ""<Keyboard>/s"",
+                    ""id"": ""cecb0f2f-f5e7-4f87-ae22-718c61697f85"",
+                    ""path"": ""<Gamepad>/dpad/down"",
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": """",
-                    ""action"": ""Movement"",
+                    ""action"": ""Camera"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": true
                 },
                 {
                     ""name"": ""left"",
-                    ""id"": ""f519f8e2-a03b-4161-abc6-7c2187668a80"",
-                    ""path"": ""<Keyboard>/a"",
+                    ""id"": ""84733ff5-ccaf-4261-8ba9-c88043824a01"",
+                    ""path"": ""<Gamepad>/dpad/left"",
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": """",
-                    ""action"": ""Movement"",
+                    ""action"": ""Camera"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": true
                 },
                 {
                     ""name"": ""right"",
-                    ""id"": ""49cf4370-5745-4bd9-9e29-a95ed17311af"",
-                    ""path"": ""<Keyboard>/f"",
+                    ""id"": ""a2387cb0-5e10-45bc-9a34-a63c43024a9e"",
+                    ""path"": ""<Gamepad>/dpad/right"",
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": """",
-                    ""action"": ""Movement"",
+                    ""action"": ""Camera"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": true
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""0358c21e-4ffa-4cc2-b58b-3891aa086090"",
+                    ""path"": ""<Gamepad>/rightShoulder"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Jump"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""11b5ce12-5b14-431e-a8e0-cb2639a32801"",
+                    ""path"": ""<Gamepad>/rightTrigger"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Jump"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""192be45d-df4b-4582-8fe7-7151bf17db90"",
+                    ""path"": ""<Gamepad>/leftTrigger"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""FreeLook"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
                 }
             ]
         }
@@ -103,6 +174,9 @@ namespace ApeEscape.Input
             // Gameplay
             m_Gameplay = asset.FindActionMap("Gameplay", throwIfNotFound: true);
             m_Gameplay_Movement = m_Gameplay.FindAction("Movement", throwIfNotFound: true);
+            m_Gameplay_Camera = m_Gameplay.FindAction("Camera", throwIfNotFound: true);
+            m_Gameplay_Jump = m_Gameplay.FindAction("Jump", throwIfNotFound: true);
+            m_Gameplay_FreeLook = m_Gameplay.FindAction("FreeLook", throwIfNotFound: true);
         }
 
         public void Dispose()
@@ -163,11 +237,17 @@ namespace ApeEscape.Input
         private readonly InputActionMap m_Gameplay;
         private IGameplayActions m_GameplayActionsCallbackInterface;
         private readonly InputAction m_Gameplay_Movement;
+        private readonly InputAction m_Gameplay_Camera;
+        private readonly InputAction m_Gameplay_Jump;
+        private readonly InputAction m_Gameplay_FreeLook;
         public struct GameplayActions
         {
             private @ApeEscapeControls m_Wrapper;
             public GameplayActions(@ApeEscapeControls wrapper) { m_Wrapper = wrapper; }
             public InputAction @Movement => m_Wrapper.m_Gameplay_Movement;
+            public InputAction @Camera => m_Wrapper.m_Gameplay_Camera;
+            public InputAction @Jump => m_Wrapper.m_Gameplay_Jump;
+            public InputAction @FreeLook => m_Wrapper.m_Gameplay_FreeLook;
             public InputActionMap Get() { return m_Wrapper.m_Gameplay; }
             public void Enable() { Get().Enable(); }
             public void Disable() { Get().Disable(); }
@@ -180,6 +260,15 @@ namespace ApeEscape.Input
                     @Movement.started -= m_Wrapper.m_GameplayActionsCallbackInterface.OnMovement;
                     @Movement.performed -= m_Wrapper.m_GameplayActionsCallbackInterface.OnMovement;
                     @Movement.canceled -= m_Wrapper.m_GameplayActionsCallbackInterface.OnMovement;
+                    @Camera.started -= m_Wrapper.m_GameplayActionsCallbackInterface.OnCamera;
+                    @Camera.performed -= m_Wrapper.m_GameplayActionsCallbackInterface.OnCamera;
+                    @Camera.canceled -= m_Wrapper.m_GameplayActionsCallbackInterface.OnCamera;
+                    @Jump.started -= m_Wrapper.m_GameplayActionsCallbackInterface.OnJump;
+                    @Jump.performed -= m_Wrapper.m_GameplayActionsCallbackInterface.OnJump;
+                    @Jump.canceled -= m_Wrapper.m_GameplayActionsCallbackInterface.OnJump;
+                    @FreeLook.started -= m_Wrapper.m_GameplayActionsCallbackInterface.OnFreeLook;
+                    @FreeLook.performed -= m_Wrapper.m_GameplayActionsCallbackInterface.OnFreeLook;
+                    @FreeLook.canceled -= m_Wrapper.m_GameplayActionsCallbackInterface.OnFreeLook;
                 }
                 m_Wrapper.m_GameplayActionsCallbackInterface = instance;
                 if (instance != null)
@@ -187,6 +276,15 @@ namespace ApeEscape.Input
                     @Movement.started += instance.OnMovement;
                     @Movement.performed += instance.OnMovement;
                     @Movement.canceled += instance.OnMovement;
+                    @Camera.started += instance.OnCamera;
+                    @Camera.performed += instance.OnCamera;
+                    @Camera.canceled += instance.OnCamera;
+                    @Jump.started += instance.OnJump;
+                    @Jump.performed += instance.OnJump;
+                    @Jump.canceled += instance.OnJump;
+                    @FreeLook.started += instance.OnFreeLook;
+                    @FreeLook.performed += instance.OnFreeLook;
+                    @FreeLook.canceled += instance.OnFreeLook;
                 }
             }
         }
@@ -194,6 +292,9 @@ namespace ApeEscape.Input
         public interface IGameplayActions
         {
             void OnMovement(InputAction.CallbackContext context);
+            void OnCamera(InputAction.CallbackContext context);
+            void OnJump(InputAction.CallbackContext context);
+            void OnFreeLook(InputAction.CallbackContext context);
         }
     }
 }
