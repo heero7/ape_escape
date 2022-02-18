@@ -11,6 +11,7 @@ namespace ApeEscape.Input
         public event Action<Vector2> OnCameraMoveEvent = delegate { };
         public event Action OnJumpEvent = delegate { };
         public event Action OnFreeLookEvent = delegate { };
+        public event Action OnResetCameraEvent = delegate { };
 
         private ApeEscapeControls _controls;
 
@@ -31,6 +32,12 @@ namespace ApeEscape.Input
         {
             if (context.phase == InputActionPhase.Performed)
                 OnFreeLookEvent.Invoke();
+        }
+
+        public void OnResetCamera(InputAction.CallbackContext context)
+        {
+            if (context.phase == InputActionPhase.Performed)
+                OnResetCameraEvent.Invoke();
         }
 
         private void OnEnable()

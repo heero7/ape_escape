@@ -8,23 +8,25 @@ namespace ApeEscape
     {
         [SerializeField] private InputReader inputReader = default!;
         
-        private CinemachineFreeLook _thirdPersonCamera;
-        private CinemachineVirtualCamera _firstPersonCamera;
+        [SerializeField] private CinemachineFreeLook thirdPersonCamera;
+        [SerializeField] private CinemachineVirtualCamera firstPersonCamera;
+
+        private Transform _currentPlayerTransform;
 
         private bool _isFreeLooking;
         
-        private void Awake()
+        private void ResetCameraBehindPlayer()
         {
-            _thirdPersonCamera = FindObjectOfType<CinemachineFreeLook>();
-            _firstPersonCamera = FindObjectOfType<CinemachineVirtualCamera>();
+            // Todo: 
+            // thirdPersonCamera.m_XAxis = 
+            
+            var rotation = _currentPlayerTransform.rotation.eulerAngles.y;
+            
 
-            _thirdPersonCamera.gameObject.SetActive(true);
-            _firstPersonCamera.gameObject.SetActive(false);
+            thirdPersonCamera.m_XAxis.Value = rotation;
+            thirdPersonCamera.m_YAxis.Value = 0.5f;
         }
-
-        private void OnEnable() => inputReader.OnFreeLookEvent += OnFreeLookPressed;
-        private void OnDisable() => inputReader.OnFreeLookEvent -= OnFreeLookPressed;
-
+        
         private void OnFreeLookPressed()
         {
             _isFreeLooking = !_isFreeLooking;
@@ -32,15 +34,45 @@ namespace ApeEscape
             if (_isFreeLooking)
             {
                 inputReader.DisableMovement();
-                _thirdPersonCamera.gameObject.SetActive(false);
-                _firstPersonCamera.gameObject.SetActive(true);
+                thirdPersonCamera.Priority = 0;
+                firstPersonCamera.Priority = 1;
             }
             else
             {
                 inputReader.EnableMovement();
-                _thirdPersonCamera.gameObject.SetActive(true);
-                _firstPersonCamera.gameObject.SetActive(false);
+                
+                thirdPersonCamera.Priority = 1;
+                firstPersonCamera.Priority = 0;
             }
+        }
+        
+        private void Awake()
+        {
+            _currentPlayerTransform = FindObjectOfType<CharacterController>().transform;
+            
+            thirdPersonCamera.Priority = 1;
+            firstPersonCamera.Priority = 0;
+        }
+
+        private void OnEnable()
+        {
+            inputReader.OnFreeLookEvent += OnFreeLookPressed;
+            inputReader.OnResetCameraEvent += ResetCameraBehindPlayer;
+        }
+
+        private void OnDisable()
+        {
+            inputReader.OnFreeLookEvent -= OnFreeLookPressed;
+            inputReader.OnResetCameraEvent -= ResetCameraBehindPlayer;
+        }
+
+        private void OnValidate()
+        {
+            if (thirdPersonCamera == null)
+                Debug.LogError("Missing field for third person camera");
+            
+            if (firstPersonCamera == null)
+                Debug.LogError("Missing field for first person camera");
         }
     }
 }

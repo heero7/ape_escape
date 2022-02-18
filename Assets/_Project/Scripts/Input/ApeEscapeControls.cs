@@ -64,6 +64,15 @@ namespace ApeEscape.Input
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""ResetCamera"",
+                    ""type"": ""Button"",
+                    ""id"": ""a682a2e6-6a5b-4f73-9e30-c635cf295fbf"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
                 }
             ],
             ""bindings"": [
@@ -165,6 +174,17 @@ namespace ApeEscape.Input
                     ""action"": ""FreeLook"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""9b3eb5b8-b2d8-4d19-a0e9-98cabdb3f1c2"",
+                    ""path"": ""<Gamepad>/leftShoulder"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""ResetCamera"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
                 }
             ]
         }
@@ -177,6 +197,7 @@ namespace ApeEscape.Input
             m_Gameplay_Camera = m_Gameplay.FindAction("Camera", throwIfNotFound: true);
             m_Gameplay_Jump = m_Gameplay.FindAction("Jump", throwIfNotFound: true);
             m_Gameplay_FreeLook = m_Gameplay.FindAction("FreeLook", throwIfNotFound: true);
+            m_Gameplay_ResetCamera = m_Gameplay.FindAction("ResetCamera", throwIfNotFound: true);
         }
 
         public void Dispose()
@@ -240,6 +261,7 @@ namespace ApeEscape.Input
         private readonly InputAction m_Gameplay_Camera;
         private readonly InputAction m_Gameplay_Jump;
         private readonly InputAction m_Gameplay_FreeLook;
+        private readonly InputAction m_Gameplay_ResetCamera;
         public struct GameplayActions
         {
             private @ApeEscapeControls m_Wrapper;
@@ -248,6 +270,7 @@ namespace ApeEscape.Input
             public InputAction @Camera => m_Wrapper.m_Gameplay_Camera;
             public InputAction @Jump => m_Wrapper.m_Gameplay_Jump;
             public InputAction @FreeLook => m_Wrapper.m_Gameplay_FreeLook;
+            public InputAction @ResetCamera => m_Wrapper.m_Gameplay_ResetCamera;
             public InputActionMap Get() { return m_Wrapper.m_Gameplay; }
             public void Enable() { Get().Enable(); }
             public void Disable() { Get().Disable(); }
@@ -269,6 +292,9 @@ namespace ApeEscape.Input
                     @FreeLook.started -= m_Wrapper.m_GameplayActionsCallbackInterface.OnFreeLook;
                     @FreeLook.performed -= m_Wrapper.m_GameplayActionsCallbackInterface.OnFreeLook;
                     @FreeLook.canceled -= m_Wrapper.m_GameplayActionsCallbackInterface.OnFreeLook;
+                    @ResetCamera.started -= m_Wrapper.m_GameplayActionsCallbackInterface.OnResetCamera;
+                    @ResetCamera.performed -= m_Wrapper.m_GameplayActionsCallbackInterface.OnResetCamera;
+                    @ResetCamera.canceled -= m_Wrapper.m_GameplayActionsCallbackInterface.OnResetCamera;
                 }
                 m_Wrapper.m_GameplayActionsCallbackInterface = instance;
                 if (instance != null)
@@ -285,6 +311,9 @@ namespace ApeEscape.Input
                     @FreeLook.started += instance.OnFreeLook;
                     @FreeLook.performed += instance.OnFreeLook;
                     @FreeLook.canceled += instance.OnFreeLook;
+                    @ResetCamera.started += instance.OnResetCamera;
+                    @ResetCamera.performed += instance.OnResetCamera;
+                    @ResetCamera.canceled += instance.OnResetCamera;
                 }
             }
         }
@@ -295,6 +324,7 @@ namespace ApeEscape.Input
             void OnCamera(InputAction.CallbackContext context);
             void OnJump(InputAction.CallbackContext context);
             void OnFreeLook(InputAction.CallbackContext context);
+            void OnResetCamera(InputAction.CallbackContext context);
         }
     }
 }
