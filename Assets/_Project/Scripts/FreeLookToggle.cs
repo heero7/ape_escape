@@ -10,6 +10,7 @@ namespace ApeEscape
         
         [SerializeField] private CinemachineFreeLook thirdPersonCamera;
         [SerializeField] private CinemachineVirtualCamera firstPersonCamera;
+        private CinemachinePOV _firstPersonPovComponent;
 
         private Transform _currentPlayerTransform;
 
@@ -36,6 +37,8 @@ namespace ApeEscape
                 inputReader.DisableMovement();
                 thirdPersonCamera.Priority = 0;
                 firstPersonCamera.Priority = 1;
+                
+                SetFirstPersonCameraInPlayerDirection();
             }
             else
             {
@@ -45,10 +48,18 @@ namespace ApeEscape
                 firstPersonCamera.Priority = 0;
             }
         }
+
+        private void SetFirstPersonCameraInPlayerDirection()
+        {
+            _firstPersonPovComponent.m_HorizontalAxis.Value = _currentPlayerTransform.rotation.eulerAngles.y;
+            _firstPersonPovComponent.m_VerticalAxis.Value = 0;
+        }
         
         private void Awake()
         {
             _currentPlayerTransform = FindObjectOfType<CharacterController>().transform;
+
+            _firstPersonPovComponent = firstPersonCamera.GetCinemachineComponent<CinemachinePOV>();
             
             thirdPersonCamera.Priority = 1;
             firstPersonCamera.Priority = 0;
