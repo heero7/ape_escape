@@ -12,6 +12,10 @@ namespace ApeEscape.Input
         public event Action OnJumpEvent = delegate { };
         public event Action OnFreeLookEvent = delegate { };
         public event Action OnResetCameraEvent = delegate { };
+        public event Action OnLeftAnalogClicked = delegate { };
+        public event Action<bool> OnLeftAnalogHeld = delegate { };
+        public event Action OnRightAnalogClicked = delegate { };
+        public event Action<bool> OnRightAnalogHeld = delegate { };
 
         private ApeEscapeControls _controls;
 
@@ -23,7 +27,6 @@ namespace ApeEscape.Input
 
         public void OnJump(InputAction.CallbackContext context)
         {
-            Debug.Log($"Jump Action Trigger status: {context.action.triggered}");
             if (context.phase == InputActionPhase.Performed)
                 OnJumpEvent.Invoke();
         }
@@ -38,6 +41,26 @@ namespace ApeEscape.Input
         {
             if (context.phase == InputActionPhase.Performed)
                 OnResetCameraEvent.Invoke();
+        }
+
+        public void OnLeftAnalogClick(InputAction.CallbackContext context)
+        {
+            if (context.phase == InputActionPhase.Started)
+                OnLeftAnalogClicked.Invoke();
+            if (context.phase == InputActionPhase.Performed)
+                OnLeftAnalogHeld.Invoke(context.ReadValueAsButton());
+            if (context.phase == InputActionPhase.Canceled)
+                OnLeftAnalogHeld.Invoke(context.ReadValueAsButton());
+        }
+
+        public void OnRightAnalogClick(InputAction.CallbackContext context)
+        {
+            if (context.phase == InputActionPhase.Started)
+                OnRightAnalogClicked.Invoke();
+            if (context.phase == InputActionPhase.Performed)
+                OnRightAnalogHeld.Invoke(context.ReadValueAsButton());
+            if (context.phase == InputActionPhase.Canceled)
+                OnRightAnalogHeld.Invoke(context.ReadValueAsButton());
         }
 
         private void OnEnable()

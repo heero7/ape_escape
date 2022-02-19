@@ -73,6 +73,24 @@ namespace ApeEscape.Input
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""LeftAnalogClick"",
+                    ""type"": ""Button"",
+                    ""id"": ""a88ae8be-4490-4e3b-874e-cdabab43cd54"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""RightAnalogClick"",
+                    ""type"": ""Button"",
+                    ""id"": ""9495e09e-efbd-400f-ae63-7f3fdd5b9ad1"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
                 }
             ],
             ""bindings"": [
@@ -185,6 +203,28 @@ namespace ApeEscape.Input
                     ""action"": ""ResetCamera"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""f1115165-bb86-4c76-a91f-fd302c9b6f3c"",
+                    ""path"": ""<Gamepad>/leftStickPress"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""LeftAnalogClick"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""e6e645de-37ab-4d02-b252-261ca59f8649"",
+                    ""path"": ""<Gamepad>/rightStickPress"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""RightAnalogClick"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
                 }
             ]
         }
@@ -198,6 +238,8 @@ namespace ApeEscape.Input
             m_Gameplay_Jump = m_Gameplay.FindAction("Jump", throwIfNotFound: true);
             m_Gameplay_FreeLook = m_Gameplay.FindAction("FreeLook", throwIfNotFound: true);
             m_Gameplay_ResetCamera = m_Gameplay.FindAction("ResetCamera", throwIfNotFound: true);
+            m_Gameplay_LeftAnalogClick = m_Gameplay.FindAction("LeftAnalogClick", throwIfNotFound: true);
+            m_Gameplay_RightAnalogClick = m_Gameplay.FindAction("RightAnalogClick", throwIfNotFound: true);
         }
 
         public void Dispose()
@@ -262,6 +304,8 @@ namespace ApeEscape.Input
         private readonly InputAction m_Gameplay_Jump;
         private readonly InputAction m_Gameplay_FreeLook;
         private readonly InputAction m_Gameplay_ResetCamera;
+        private readonly InputAction m_Gameplay_LeftAnalogClick;
+        private readonly InputAction m_Gameplay_RightAnalogClick;
         public struct GameplayActions
         {
             private @ApeEscapeControls m_Wrapper;
@@ -271,6 +315,8 @@ namespace ApeEscape.Input
             public InputAction @Jump => m_Wrapper.m_Gameplay_Jump;
             public InputAction @FreeLook => m_Wrapper.m_Gameplay_FreeLook;
             public InputAction @ResetCamera => m_Wrapper.m_Gameplay_ResetCamera;
+            public InputAction @LeftAnalogClick => m_Wrapper.m_Gameplay_LeftAnalogClick;
+            public InputAction @RightAnalogClick => m_Wrapper.m_Gameplay_RightAnalogClick;
             public InputActionMap Get() { return m_Wrapper.m_Gameplay; }
             public void Enable() { Get().Enable(); }
             public void Disable() { Get().Disable(); }
@@ -295,6 +341,12 @@ namespace ApeEscape.Input
                     @ResetCamera.started -= m_Wrapper.m_GameplayActionsCallbackInterface.OnResetCamera;
                     @ResetCamera.performed -= m_Wrapper.m_GameplayActionsCallbackInterface.OnResetCamera;
                     @ResetCamera.canceled -= m_Wrapper.m_GameplayActionsCallbackInterface.OnResetCamera;
+                    @LeftAnalogClick.started -= m_Wrapper.m_GameplayActionsCallbackInterface.OnLeftAnalogClick;
+                    @LeftAnalogClick.performed -= m_Wrapper.m_GameplayActionsCallbackInterface.OnLeftAnalogClick;
+                    @LeftAnalogClick.canceled -= m_Wrapper.m_GameplayActionsCallbackInterface.OnLeftAnalogClick;
+                    @RightAnalogClick.started -= m_Wrapper.m_GameplayActionsCallbackInterface.OnRightAnalogClick;
+                    @RightAnalogClick.performed -= m_Wrapper.m_GameplayActionsCallbackInterface.OnRightAnalogClick;
+                    @RightAnalogClick.canceled -= m_Wrapper.m_GameplayActionsCallbackInterface.OnRightAnalogClick;
                 }
                 m_Wrapper.m_GameplayActionsCallbackInterface = instance;
                 if (instance != null)
@@ -314,6 +366,12 @@ namespace ApeEscape.Input
                     @ResetCamera.started += instance.OnResetCamera;
                     @ResetCamera.performed += instance.OnResetCamera;
                     @ResetCamera.canceled += instance.OnResetCamera;
+                    @LeftAnalogClick.started += instance.OnLeftAnalogClick;
+                    @LeftAnalogClick.performed += instance.OnLeftAnalogClick;
+                    @LeftAnalogClick.canceled += instance.OnLeftAnalogClick;
+                    @RightAnalogClick.started += instance.OnRightAnalogClick;
+                    @RightAnalogClick.performed += instance.OnRightAnalogClick;
+                    @RightAnalogClick.canceled += instance.OnRightAnalogClick;
                 }
             }
         }
@@ -325,6 +383,8 @@ namespace ApeEscape.Input
             void OnJump(InputAction.CallbackContext context);
             void OnFreeLook(InputAction.CallbackContext context);
             void OnResetCamera(InputAction.CallbackContext context);
+            void OnLeftAnalogClick(InputAction.CallbackContext context);
+            void OnRightAnalogClick(InputAction.CallbackContext context);
         }
     }
 }
