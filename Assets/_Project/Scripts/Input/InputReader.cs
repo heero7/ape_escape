@@ -20,7 +20,12 @@ namespace ApeEscape.Input
         private ApeEscapeControls _controls;
 
         public void OnMovement(InputAction.CallbackContext context)
-            => OnMoveEvent.Invoke(context.ReadValue<Vector2>());
+        {
+            Debug.Log($"{context.ReadValue<Vector2>().magnitude}");
+            Debug.Log($"{context.ReadValue<Vector2>()}");
+            Debug.Log($"{context.ReadValue<Vector2>().normalized}");
+            OnMoveEvent.Invoke(context.ReadValue<Vector2>());
+        }
 
         public void OnCamera(InputAction.CallbackContext context) 
             => OnCameraMoveEvent.Invoke(context.ReadValue<Vector2>());

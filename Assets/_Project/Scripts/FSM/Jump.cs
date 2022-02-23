@@ -13,7 +13,7 @@ namespace ApeEscape.FSM
         private readonly Transform _thirdPersonCameraTransform;
         
         private static readonly int JumpAnim = Animator.StringToHash("Jump");
-        private static readonly int Flip = Animator.StringToHash("Flip");
+        private static readonly int Flip = Animator.StringToHash("DoubleJump");
 
         public override void OnEnter()
         {
@@ -56,7 +56,7 @@ namespace ApeEscape.FSM
                 _playerVelocity.y += _jumpStats.MaxJumpForce / jumpMultiplier;
                 VirtualController.ClearJumpPressCache();
                 _currentJumps++;
-                Animator.SetBool(Flip, true);
+                Animator.SetTrigger(Flip);
             }
             
             _playerVelocity.y += _jumpStats.Gravity * Time.deltaTime;
@@ -66,7 +66,6 @@ namespace ApeEscape.FSM
         public override void OnExit()
         {
             Animator.SetBool(JumpAnim, false);
-            Animator.SetBool(Flip, false);
         }
 
         public Jump(CharacterController characterController, VirtualController virtualController,

@@ -7,24 +7,25 @@ namespace ApeEscape.FSM
     {
         private readonly Transform _thirdPersonCameraTransform;
         
-        private static readonly int RunAnim = Animator.StringToHash("Run");
+        private static readonly int RunSpeedParam = Animator.StringToHash("RunSpeed");
 
 
         public override void OnEnter()
         {
-            Animator.SetBool(RunAnim, true);
         }
 
         public override void OnUpdate()
         {
             CharacterController.Move(Vector3.down * Time.deltaTime);
-            
-            var horizontalInput = VirtualController.MoveDirection.x;
-            var verticalInput = VirtualController.MoveDirection.y;
+
+            var horizontalInput = VirtualController.MoveDirection.normalized.x;
+            var verticalInput = VirtualController.MoveDirection.normalized.y;
             
             var move = new Vector3(horizontalInput, 0, verticalInput);
             move = _thirdPersonCameraTransform.forward * move.z + _thirdPersonCameraTransform.right * move.x;
             move.y = 0;
+            
+            Animator.SetFloat(RunSpeedParam, VirtualController.MoveDirection.magnitude);
             
             CharacterController.Move(move * (Time.deltaTime * 5f));
             
@@ -41,7 +42,7 @@ namespace ApeEscape.FSM
 
         public override void OnExit()
         {
-            Animator.SetBool(RunAnim, false);
+            Animator.SetFloat(RunSpeedParam, 0);
         }
 
         public Run(CharacterController characterController, VirtualController virtualController, Transform thirdPersonCameraTransform, Animator animator) 
