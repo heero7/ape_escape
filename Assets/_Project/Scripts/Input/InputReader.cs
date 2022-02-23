@@ -7,65 +7,64 @@ namespace ApeEscape.Input
     [CreateAssetMenu(fileName = "Input Reader", menuName = "Input/InputReader", order = 0)]
     public class InputReader : ScriptableObject, ApeEscapeControls.IGameplayActions
     {
-        public event Action<Vector2> OnMoveEvent = delegate { };
-        public event Action<Vector2> OnCameraMoveEvent = delegate { };
-        public event Action OnJumpEvent = delegate { };
-        public event Action OnFreeLookEvent = delegate { };
-        public event Action OnResetCameraEvent = delegate { };
-        public event Action OnLeftAnalogClicked = delegate { };
-        public event Action<bool> OnLeftAnalogHeld = delegate { };
-        public event Action OnRightAnalogClicked = delegate { };
-        public event Action<bool> OnRightAnalogHeld = delegate { };
+        public event Action<Vector2> MoveEvent = delegate { };
+        public event Action<Vector2> CameraMoveEvent = delegate { };
+        public event Action JumpEvent = delegate { };
+        public event Action FreeLookEvent = delegate { };
+        public event Action ResetCameraEvent = delegate { };
+        public event Action LeftAnalogClicked = delegate { };
+        public event Action<bool> LeftAnalogHeld = delegate { };
+        public event Action RightAnalogClicked = delegate { };
+        public event Action<bool> RightAnalogHeld = delegate { };
 
         private ApeEscapeControls _controls;
 
         public void OnMovement(InputAction.CallbackContext context)
         {
-            Debug.Log($"{context.ReadValue<Vector2>().magnitude}");
-            Debug.Log($"{context.ReadValue<Vector2>()}");
-            Debug.Log($"{context.ReadValue<Vector2>().normalized}");
-            OnMoveEvent.Invoke(context.ReadValue<Vector2>());
+            MoveEvent.Invoke(context.ReadValue<Vector2>());
         }
 
-        public void OnCamera(InputAction.CallbackContext context) 
-            => OnCameraMoveEvent.Invoke(context.ReadValue<Vector2>());
+        public void OnCamera(InputAction.CallbackContext context)
+        {
+            CameraMoveEvent.Invoke(context.ReadValue<Vector2>());
+        }
 
         public void OnJump(InputAction.CallbackContext context)
         {
             if (context.phase == InputActionPhase.Performed)
-                OnJumpEvent.Invoke();
+                JumpEvent.Invoke();
         }
 
         public void OnFreeLook(InputAction.CallbackContext context)
         {
             if (context.phase == InputActionPhase.Performed)
-                OnFreeLookEvent.Invoke();
+                FreeLookEvent.Invoke();
         }
 
         public void OnResetCamera(InputAction.CallbackContext context)
         {
             if (context.phase == InputActionPhase.Performed)
-                OnResetCameraEvent.Invoke();
+                ResetCameraEvent.Invoke();
         }
 
         public void OnLeftAnalogClick(InputAction.CallbackContext context)
         {
             if (context.phase == InputActionPhase.Started)
-                OnLeftAnalogClicked.Invoke();
+                LeftAnalogClicked.Invoke();
             if (context.phase == InputActionPhase.Performed)
-                OnLeftAnalogHeld.Invoke(context.ReadValueAsButton());
+                LeftAnalogHeld.Invoke(context.ReadValueAsButton());
             if (context.phase == InputActionPhase.Canceled)
-                OnLeftAnalogHeld.Invoke(context.ReadValueAsButton());
+                LeftAnalogHeld.Invoke(context.ReadValueAsButton());
         }
 
         public void OnRightAnalogClick(InputAction.CallbackContext context)
         {
             if (context.phase == InputActionPhase.Started)
-                OnRightAnalogClicked.Invoke();
+                RightAnalogClicked.Invoke();
             if (context.phase == InputActionPhase.Performed)
-                OnRightAnalogHeld.Invoke(context.ReadValueAsButton());
+                RightAnalogHeld.Invoke(context.ReadValueAsButton());
             if (context.phase == InputActionPhase.Canceled)
-                OnRightAnalogHeld.Invoke(context.ReadValueAsButton());
+                RightAnalogHeld.Invoke(context.ReadValueAsButton());
         }
 
         private void OnEnable()
@@ -77,10 +76,19 @@ namespace ApeEscape.Input
             _controls.Enable();
         }
 
-        private void OnDisable() => _controls?.Disable();
+        private void OnDisable()
+        {
+            _controls?.Disable();
+        }
 
-        public void DisableMovement() => _controls.Gameplay.Movement.Disable();
+        public void DisableMovement()
+        {
+            _controls.Gameplay.Movement.Disable();
+        }
 
-        public void EnableMovement() => _controls.Gameplay.Movement.Enable();
+        public void EnableMovement()
+        {
+            _controls.Gameplay.Movement.Enable();
+        }
     }
 }

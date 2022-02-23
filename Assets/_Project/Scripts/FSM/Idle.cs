@@ -10,22 +10,17 @@ namespace ApeEscape.FSM
         {
         }
         
-        private static readonly int IdleAnim = Animator.StringToHash("Idle");
+        private static readonly int RunSpeedAnimParam = Animator.StringToHash("RunSpeed");
 
 
         public override void OnEnter()
         {
-            Animator.SetBool(IdleAnim, true);
+            Animator.SetFloat(RunSpeedAnimParam, 0);
         }
 
         public override void OnUpdate()
         {
             CharacterController.Move(Vector3.down * Time.deltaTime);
-        }
-        
-        public override void OnExit()
-        {
-            Animator.SetBool(IdleAnim, false);
         }
     }
 }

@@ -8,7 +8,7 @@ namespace ApeEscape
     [RequireComponent(typeof(CharacterController))]
     public class Player : MonoBehaviour
     {
-        [SerializeField] private Transform thirdPersonCameraTransform;
+        [SerializeField] private Transform thirdPersonCameraTransform = default!;
         [SerializeField] private JumpStats jumpStats = new JumpStats();
         
         private StateMachine _stateMachine;
@@ -28,6 +28,7 @@ namespace ApeEscape
             var idle = new Idle(_characterController, _virtualController, _animator);
             
             var run = new Run(_characterController, _virtualController, thirdPersonCameraTransform, _animator);
+            var crawl = new Crawl(_characterController, _virtualController, thirdPersonCameraTransform, _animator);
             var jump = new Jump(_characterController, _virtualController, jumpStats, thirdPersonCameraTransform, _animator);
             
             _stateMachine.SetState(idle);
@@ -44,6 +45,13 @@ namespace ApeEscape
             _stateMachine.AddTransition(idle, run, () => _virtualController.MoveDirection != Vector2.zero);
             _stateMachine.AddTransition(run, idle, () => _virtualController.MoveDirection == Vector2.zero);
             _stateMachine.AddTransition(run, jump, jumpCondition);
+            _stateMachine.AddTransition(idle, crawl, () =>
+            {
+                if (!_virtualController.LeftAnalogPressed) return false;
+                _virtualController.ResetLeftAnalogPressed();
+                return true;
+            });
+            _stateMachine.AddTransition(crawl, idle, () => !_virtualController.LeftAnalogHeld);
             _stateMachine.AddTransition(idle, jump, jumpCondition);
             _stateMachine.AddTransition(jump, idle, () => _virtualController.MoveDirection == Vector2.zero 
                                                           && _characterController.isGrounded);

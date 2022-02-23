@@ -8,8 +8,8 @@ namespace ApeEscape
     {
         [SerializeField] private InputReader inputReader = default!;
         
-        [SerializeField] private CinemachineFreeLook thirdPersonCamera;
-        [SerializeField] private CinemachineVirtualCamera firstPersonCamera;
+        [SerializeField] private CinemachineFreeLook thirdPersonCamera = default!;
+        [SerializeField] private CinemachineVirtualCamera firstPersonCamera = default!;
         private CinemachinePOV _firstPersonPovComponent;
 
         private Transform _currentPlayerTransform;
@@ -17,13 +17,9 @@ namespace ApeEscape
         private bool _isFreeLooking;
         
         private void ResetCameraBehindPlayer()
-        {
-            // Todo: 
-            // thirdPersonCamera.m_XAxis = 
-            
+        {   
             var rotation = _currentPlayerTransform.rotation.eulerAngles.y;
-            
-
+         
             thirdPersonCamera.m_XAxis.Value = rotation;
             thirdPersonCamera.m_YAxis.Value = 0.5f;
         }
@@ -67,14 +63,14 @@ namespace ApeEscape
 
         private void OnEnable()
         {
-            inputReader.OnFreeLookEvent += OnFreeLookPressed;
-            inputReader.OnResetCameraEvent += ResetCameraBehindPlayer;
+            inputReader.FreeLookEvent += OnFreeLookPressed;
+            inputReader.ResetCameraEvent += ResetCameraBehindPlayer;
         }
 
         private void OnDisable()
         {
-            inputReader.OnFreeLookEvent -= OnFreeLookPressed;
-            inputReader.OnResetCameraEvent -= ResetCameraBehindPlayer;
+            inputReader.FreeLookEvent -= OnFreeLookPressed;
+            inputReader.ResetCameraEvent -= ResetCameraBehindPlayer;
         }
 
         private void OnValidate()

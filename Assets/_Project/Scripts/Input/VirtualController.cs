@@ -42,30 +42,30 @@ namespace ApeEscape.Input
 
         private void OnEnable()
         {
-            inputReader.OnMoveEvent += OnMove;
+            inputReader.MoveEvent += OnMove;
             
-            inputReader.OnCameraMoveEvent += OnCameraMove;
-            inputReader.OnJumpEvent += OnJumpPress;
+            inputReader.CameraMoveEvent += OnCameraMove;
+            inputReader.JumpEvent += OnJumpPress;
             
-            inputReader.OnLeftAnalogClicked += OnLeftAnalogClicked;
-            inputReader.OnLeftAnalogHeld += OnLeftAnalogHeld;
+            inputReader.LeftAnalogClicked += OnLeftAnalogClicked;
+            inputReader.LeftAnalogHeld += OnLeftAnalogHeld;
             
-            inputReader.OnRightAnalogClicked += OnRightAnalogClicked;
-            inputReader.OnRightAnalogHeld += OnRightAnalogHeld;
+            inputReader.RightAnalogClicked += OnRightAnalogClicked;
+            inputReader.RightAnalogHeld += OnRightAnalogHeld;
         }
 
         private void OnDisable()
         {
-            inputReader.OnMoveEvent -= OnMove;
+            inputReader.MoveEvent -= OnMove;
             
-            inputReader.OnCameraMoveEvent -= OnCameraMove;
-            inputReader.OnJumpEvent -= OnJumpPress;
+            inputReader.CameraMoveEvent -= OnCameraMove;
+            inputReader.JumpEvent -= OnJumpPress;
             
-            inputReader.OnLeftAnalogClicked -= OnLeftAnalogClicked;
-            inputReader.OnLeftAnalogHeld -= OnLeftAnalogHeld;
+            inputReader.LeftAnalogClicked -= OnLeftAnalogClicked;
+            inputReader.LeftAnalogHeld -= OnLeftAnalogHeld;
             
-            inputReader.OnRightAnalogClicked -= OnRightAnalogClicked;
-            inputReader.OnRightAnalogHeld -= OnRightAnalogHeld;
+            inputReader.RightAnalogClicked -= OnRightAnalogClicked;
+            inputReader.RightAnalogHeld -= OnRightAnalogHeld;
         }
 
         private void Update()
