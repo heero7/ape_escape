@@ -6,9 +6,13 @@ namespace ApeEscape.FSM
     public class Run : State
     {
         private readonly Transform _thirdPersonCameraTransform;
+        
+        private static readonly int RunAnim = Animator.StringToHash("Run");
+
 
         public override void OnEnter()
         {
+            Animator.SetBool(RunAnim, true);
         }
 
         public override void OnUpdate()
@@ -37,9 +41,11 @@ namespace ApeEscape.FSM
 
         public override void OnExit()
         {
+            Animator.SetBool(RunAnim, false);
         }
 
-        public Run(CharacterController characterController, VirtualController virtualController, Transform thirdPersonCameraTransform) : base(characterController, virtualController)
+        public Run(CharacterController characterController, VirtualController virtualController, Transform thirdPersonCameraTransform, Animator animator) 
+            : base(characterController, virtualController, animator)
         {
             _thirdPersonCameraTransform = thirdPersonCameraTransform;
         }

@@ -8,10 +8,14 @@ namespace ApeEscape.FSM
         protected CharacterController CharacterController { get; }
         protected VirtualController VirtualController { get; }
 
-        public State(CharacterController characterController, VirtualController virtualController)
+        protected Animator Animator { get; }
+
+        protected State(CharacterController characterController, VirtualController virtualController,
+            Animator animator)
         {
             VirtualController = virtualController;
             CharacterController = characterController;
+            Animator = animator;
         }
         public virtual void OnEnter()
         {

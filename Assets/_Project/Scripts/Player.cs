@@ -14,19 +14,21 @@ namespace ApeEscape
         private StateMachine _stateMachine;
         private CharacterController _characterController;
         private VirtualController _virtualController;
-        
+        private Animator _animator;
 
         private void Awake()
         {
             _characterController = GetComponent<CharacterController>();
             _virtualController = GetComponent<VirtualController>();
+
+            _animator = GetComponentInChildren<Animator>();
             
             _stateMachine = new StateMachine();
 
-            var idle = new Idle(_characterController, _virtualController);
+            var idle = new Idle(_characterController, _virtualController, _animator);
             
-            var run = new Run(_characterController, _virtualController, thirdPersonCameraTransform);
-            var jump = new Jump(_characterController, _virtualController, jumpStats);
+            var run = new Run(_characterController, _virtualController, thirdPersonCameraTransform, _animator);
+            var jump = new Jump(_characterController, _virtualController, jumpStats, thirdPersonCameraTransform, _animator);
             
             _stateMachine.SetState(idle);
 
